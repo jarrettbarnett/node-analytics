@@ -1,9 +1,20 @@
-model TableSettings {
-  id        String   @id @default(cuid())
-  tableId   String   @unique
-  settings  Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+generator client {
+  provider = "prisma-client-js"
+}
 
-  @@index([tableId])
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id        String   @id @default(uuid())
+  eventType String
+  userId    String?
+  timestamp DateTime
+  metadata  Json
+  createdAt DateTime @default(now())
+
+  @@index([eventType, timestamp])
+  @@index([userId])
 } 

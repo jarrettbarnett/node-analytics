@@ -42,9 +42,4 @@ export class AnalyticsService {
       throw error;
     }
   }
-
-  async cleanup(): Promise<void> {
-    await this.prisma.$disconnect();
-    await this.redis.quit();
-  }
 } 

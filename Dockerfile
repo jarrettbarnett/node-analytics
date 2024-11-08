@@ -15,10 +15,11 @@ RUN npm run prisma:generate
 # Build TypeScript
 RUN npm run build
 
-# Remove development dependencies
-RUN npm prune --production
+# Create startup script
+RUN echo "#!/bin/sh\n\
+npm run prisma:migrate\n\
+npm start" > ./start.sh && chmod +x ./start.sh
 
 EXPOSE 3000
 
-# Use production build
-CMD ["npm", "start"] 
+CMD ["./start.sh"]
