@@ -1,0 +1,9 @@
+model TableSettings {
+  id        String   @id @default(cuid())
+  tableId   String   @unique
+  settings  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tableId])
+} 
