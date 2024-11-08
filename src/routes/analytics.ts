@@ -11,15 +11,39 @@ interface EventRequest {
   metadata: Record<string, any>;
 }
 
-router.post('/event', async (req: Request<{}, any, EventRequest>, res: Response) => {
+// Helper function to handle both types of requests
+const handleEventTracking = async (eventData: EventRequest, res: Response) => {
   try {
-    const event = req.body;
-    await analyticsService.trackEvent(event);
+    await analyticsService.trackEvent(eventData);
     res.status(200).json({ success: true });
   } catch (error) {
     logger.error('Error tracking event:', error);
     res.status(500).json({ error: 'Failed to track event' });
   }
+};
+
+// Handle POST requests
+router.post('/event', async (req: Request<{}, any, EventRequest>, res: Response) => {
+  const event = req.body;
+  await handleEventTracking(event, res);
+});
+
+// Handle GET requests
+router.get('/event', async (req: Request, res: Response) => {
+  const { eventType, userId, metadata } = req.query;
+  
+  if (!eventType || !userId) {
+    res.status(400).json({ error: 'Missing required parameters' });
+    return;
+  }
+
+  const event = {
+    eventType: eventType as string,
+    userId: userId as string,
+    metadata: metadata ? JSON.parse(metadata as string) : {}
+  };
+
+  await handleEventTracking(event, res);
 });
 
 router.get('/stats', async (req: Request, res: Response) => {

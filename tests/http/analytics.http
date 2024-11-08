@@ -1,0 +1,37 @@
+### Variables
+@baseUrl = http://localhost:3000/analytics
+
+### Track Event (GET)
+GET {{baseUrl}}/event?eventType=pageview&userId=user123&metadata={"page":"/home"}
+Content-Type: application/json
+
+### Track Event (POST)
+POST {{baseUrl}}/event
+Content-Type: application/json
+
+{
+    "eventType": "pageview",
+    "userId": "user123",
+    "metadata": {
+        "page": "/home",
+        "referrer": "google"
+    }
+}
+
+### Get Stats
+GET {{baseUrl}}/stats?eventType=pageview&days=7
+Content-Type: application/json
+
+### Error Cases
+
+### Missing Parameters (GET Event)
+GET {{baseUrl}}/event?eventType=pageview
+Content-Type: application/json
+
+### Missing Parameters (Stats)
+GET {{baseUrl}}/stats
+Content-Type: application/json
+
+### Invalid Days Parameter
+GET {{baseUrl}}/stats?eventType=pageview&days=invalid
+Content-Type: application/json 
