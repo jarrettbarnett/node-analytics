@@ -22,8 +22,8 @@ A high-performance analytics service built with Node.js, Redis, and PostgreSQL, 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/jarrettbarnett/analytics-service.git
-cd analytics-service
+git clone https://github.com/jarrettbarnett/node-analytics.git
+cd node-analytics
 ```
 
 2. Copy the environment file:
