@@ -1,4 +1,4 @@
-# Analytics Service
+# Analytics Service [alpha]
 
 A high-performance analytics service built with Node.js, Redis, and PostgreSQL, capable of handling millions of requests per hour.
 
